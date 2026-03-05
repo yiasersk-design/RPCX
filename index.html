@@ -148,6 +148,504 @@
             font-family: 'Google Sans Mono', monospace;
             font-size: 14px;
             resize: none;
+            /* বাটনটি যেন লেখার বক্সের উপরে না পড়ে, তাই এখানে 80px করা হয়েছে */
+            margin-bottom: 80px; 
+            color: #000000;
+            
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        .btn {
+            /* কিবোর্ডের উপরে ভাসিয়ে রাখার জন্য পাকাপোক্ত ফিক্স */
+            width: calc(100% - 40px); 
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.1s, opacity 0.1s;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .btn:active {
+            transform: scale(0.96); 
+            opacity: 0.9;
+        }
+
+        /* --- EDITOR HEADER --- */
+        .editor-header {
+            background: var(--surface-color);
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee; 
+            z-index: 10;
+            flex-shrink: 0;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .search-box, .replace-box {
+            flex: 1;
+            padding: 0 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Google Sans Mono', monospace;
+            font-size: 14px;
+            background: #f5f5f5;
+            color: #000000;
+            height: 44px; 
+            
+            -webkit-user-select: text;
+            user-select: text;
+        }
+        
+        .search-box:focus, .replace-box:focus {
+            border-color: #000;
+            background: #fff;
+        }
+
+        .icon-btn {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            padding: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px; 
+            height: 44px;
+            transition: background 0.1s;
+        }
+
+        .icon-btn:active {
+            background-color: #f0f0f0;
+            transform: scale(0.95);
+        }
+
+        /* --- EDITOR BODY --- */
+        .editor-body {
+            flex: 1;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: var(--surface-color);
+            padding-bottom: calc(60px + var(--safe-bottom)); 
+            overscroll-behavior: contain;
+        }
+
+        .code-row {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .line-num-col {
+            width: 40px;
+            flex-shrink: 0;
+            background: #fafafa;
+            border-right: 1px solid #eee;
+            text-align: right;
+            padding: 4px 6px 4px 2px;
+            font-family: 'Google Sans Mono', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #888;
+            -webkit-user-select: none;
+            user-select: none;
+            cursor: default;
+        }
+
+        .line-code-col {
+            flex: 1;
+            padding: 4px 8px;
+            font-family: 'Google Sans Mono', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #000;
+            white-space: pre-wrap;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        /* --- FOOTER --- */
+        .editor-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: calc(60px + var(--safe-bottom));
+            background: #ffffff;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: flex-start; 
+            justify-content: space-between;
+            padding: 10px 20px 0 20px; 
+            z-index: 20;
+            font-family: 'Google Sans Mono', monospace;
+            font-size: 12px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .stats-info {
+            display: flex;
+            gap: 15px;
+            font-weight: 500;
+            padding-top: 5px;
+            color: #555;
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 20px; 
+        }
+
+        .footer-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            text-decoration: none;
+            transition: transform 0.1s;
+        }
+        
+        .footer-btn:active {
+            opacity: 0.6;
+            transform: scale(0.85);
+        }
+
+        .footer-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        mark.highlight {
+            background: rgba(255, 235, 59, 0.4);
+            border-bottom: 2px solid #fbc02d;
+            color: inherit;
+            border-radius: 2px;
+        }
+
+        /* --- PREVIEW VIEW STYLES --- */
+        .preview-header {
+            display: flex;
+            align-items: center;
+            background: var(--surface-color);
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            z-index: 10;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .back-btn:active {
+            opacity: 0.6;
+        }
+
+        .preview-body {
+            flex: 1;
+            width: 100%;
+            background: #ffffff;
+            position: relative;
+        }
+
+        #previewFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* --- POPUPS & BOTTOM SHEET --- */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(2px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .bottom-sheet-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); 
+            display: flex;
+            align-items: flex-end; 
+            z-index: 100;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .bottom-sheet-content {
+            background: #ffffff;
+            width: 100%;
+            height: 65vh; 
+            border-radius: 12px 12px 0 0; /* গোল ভাব কমানো হয়েছে */
+            display: flex;
+            flex-direction: column;
+            padding: 15px 20px calc(20px + var(--safe-bottom));
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+            animation: slideUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .drag-handle {
+            width: 40px;
+            height: 5px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 0 auto 15px auto;
+        }
+
+        .sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .sheet-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .close-sheet-btn {
+            background: #f0f0f0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #000;
+        }
+
+        .report-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding-right: 5px;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            overscroll-behavior: contain;
+        }
+
+        .report-item {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .report-date { color: #888; font-size: 11px; margin-bottom: 4px; font-weight: 500; }
+        .report-msg { color: #000; background: #f5f5f5; padding: 12px 15px; border-radius: 16px 16px 16px 4px; display: inline-block; width: fit-content; max-width: 90%; line-height: 1.4; }
+
+        .report-input-area {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 15px;
+        }
+
+        .report-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px; /* ইনপুটের গোল ভাব কমানো হয়েছে */
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            background: #f9f9f9;
+            -webkit-user-select: text;
+            user-select: text;
+            height: 44px;
+        }
+        
+        .report-input:focus {
+            background: #fff;
+            border-color: #000;
+        }
+
+        .send-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .send-btn:active {
+            transform: scale(0.9);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .hidden-opt {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="customPopup" class="popup-overlay hidden-opt" onclick="handlePopupClick(event, 'customPopup')">
+        <div class="popup-content" style="background:#fff; width:85%; max-width:320px; padding:25px; border-radius:20px; text-align:center;">
+            <div style="margin-bottom: 15px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            </div>
+            <p style="font-family:'Roboto', sans-serif; font-size:16px; color:#333; margin-bottom:25px;">Please enter some text to search.</p>
+            <button style="background:#000; color:#fff; border:none; padding:12px 30px; border-radius:10px; font-size:15px; cursor:pointer; font-weight:600; width:100%;" onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <div id="reportModal" class="bottom-sheet-overlay hidden-opt" onclick="handlePopupClick(event, 'reportModal')">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="drag-handle"></div>
+            <div class="sheet-header">
+                <h3>Feedback</h3>
+                <button class="close-sheet-btn" onclick="closePopup()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div id="reportList" class="report-list">
+                <div style="text-align:center; color:#999; margin-top:20px;">No reports yet.</div>
+            </div>
+            <div class="report-input-area">
+                <input type="text" id="newReportInput" class="report-input" placeholder="Type your issue..." enterkeyhint="send" onkeydown="if(event.key==='Enter') submitReport()">
+                <button class="send-btn" onclick="submitReport()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="view active" id="homeView">
+        <div class="home-top-bar" style="gap: 15px;">
+            <a href="https://github.com/yiasersk-design" target="_blank" class="icon-btn" style="border:none; background:transparent; width:40px; height:40px; color:#000; text-decoration:none; display:flex; align-items:center; justify-content:center;" title="GitHub Profile">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+
+            <a href="https://t.me/DronilionTv" target="_blank" class="icon-btn" style="border:none; background:transparent; width:40px; height:40px; color:#000; text-decoration:none; display:flex; align-items:center; justify-content:center;" title="Join Telegram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </a>
+
+            <button class="icon-btn" style="border:none; background:transparent; width:40px; height:40px;" onclick="openReportModal()" title="Report/Feedback">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+            </button>
+        </div>
+        <div class="home-container">
+            <div class="profile-header">
+                <div class="avatar-container">
+                    <video id="avatarVideo" class="avatar-video" autoplay loop muted playsinline preload="auto">
+                        <source src="https://raw.githubusercontent.com/yias            width: 90px;
+            height: 90px;
+            border-radius: 18px; 
+            overflow: hidden;
+            border: 1px solid var(--primary-color);
+            position: relative;
+            background: #f0f0f0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .avatar-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #000; 
+        }
+
+        .welcome-msg {
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.1;
+        }
+
+        .welcome-sub {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            display: block;
+            font-weight: 400;
+        }
+
+        .paste-area {
+            width: 100%;
+            flex: 1;             
+            border: 2px dashed var(--border-color);
+            border-radius: 16px;
+            background: #f9f9f9;
+            padding: 15px;
+            font-family: 'Google Sans Mono', monospace;
+            font-size: 14px;
+            resize: none;
             margin-bottom: 20px;
             color: #000000;
             
