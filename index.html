@@ -171,6 +171,12 @@
             gap: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             transition: transform 0.1s, opacity 0.1s;
+            
+            /* কিবোর্ডের উপরে ভাসিয়ে রাখার জন্য এই লাইনগুলো যুক্ত করা হয়েছে */
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+            flex-shrink: 0;
         }
 
         .btn:active {
@@ -395,7 +401,7 @@
             display: block;
         }
 
-        /* --- POPUPS & BOTTOM SHEET (YouTube Shorts Style) --- */
+        /* --- POPUPS & BOTTOM SHEET --- */
         .popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -413,7 +419,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.5); 
             display: flex;
-            align-items: flex-end; /* Align to bottom */
+            align-items: flex-end; 
             z-index: 100;
             animation: fadeIn 0.2s ease-out;
         }
@@ -421,8 +427,8 @@
         .bottom-sheet-content {
             background: #ffffff;
             width: 100%;
-            height: 65vh; /* Takes 65% of screen height */
-            border-radius: 12px 12px 0 0;
+            height: 65vh; 
+            border-radius: 12px 12px 0 0; /* গোল ভাব কমানো হয়েছে */
             display: flex;
             flex-direction: column;
             padding: 15px 20px calc(20px + var(--safe-bottom));
@@ -496,7 +502,7 @@
             flex: 1;
             padding: 12px 15px;
             border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 8px; /* ইনপুটের গোল ভাব কমানো হয়েছে */
             font-family: 'Roboto', sans-serif;
             font-size: 14px;
             background: #f9f9f9;
@@ -577,448 +583,22 @@
     </div>
 
     <div class="view active" id="homeView">
-<div class="home-top-bar" style="gap: 15px;">
-    <a href="https://github.com/yiasersk-design" target="_blank" class="icon-btn" style="border:none; background:transparent; width:40px; height:40px; color:#000; text-decoration:none; display:flex; align-items:center; justify-content:center;" title="GitHub Profile">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-    </a>
+        <div class="home-top-bar" style="gap: 15px;">
+            <a href="https://github.com/yiasersk-design" target="_blank" class="icon-btn" style="border:none; background:transparent; width:40px; height:40px; color:#000; text-decoration:none; display:flex; align-items:center; justify-content:center;" title="GitHub Profile">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
 
-    <a href="https://t.me/DronilionTv" target="_blank" class="icon-btn" style="border:none; background:transparent; width:40px; height:40px; color:#000; text-decoration:none; display:flex; align-items:center; justify-content:center;" title="Join Telegram">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-    </a>
+            <a href="https://t.me/DronilionTv" target="_blank" class="icon-btn" style="border:none; background:transparent; width:40px; height:40px; color:#000; text-decoration:none; display:flex; align-items:center; justify-content:center;" title="Join Telegram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </a>
 
-    <button class="icon-btn" style="border:none; background:transparent; width:40px; height:40px;" onclick="openReportModal()" title="Report/Feedback">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
-    </button>
-</div>
-
-
+            <button class="icon-btn" style="border:none; background:transparent; width:40px; height:40px;" onclick="openReportModal()" title="Report/Feedback">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+            </button>
+        </div>
         <div class="home-container">
             <div class="profile-header">
                 <div class="avatar-container">
                     <video id="avatarVideo" class="avatar-video" autoplay loop muted playsinline preload="auto">
                         <source src="https://raw.githubusercontent.com/yiasersk-design/Hi/main/InShot_20260128_185031964.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div>
-                    <div class="welcome-msg">Hi, Welcome!</div>
-                    <span class="welcome-sub">Ready to code something cool?</span>
-                </div>
-            </div>
-
-            <h2 style="margin-bottom: 15px; font-weight: 500; color: #000; font-size: 20px;">Paste Your HTML</h2>
-            <textarea id="pasteInput" class="paste-area" placeholder="Paste your code here..."></textarea>
-            <button class="btn" onclick="goToEditor()">
-                Start Editing
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </button>
-        </div>
-    </div>
-
-    <div class="view hidden" id="editorView">
-        <div class="editor-header">
-            <div class="toolbar">
-                <div class="input-group">
-                    <textarea id="searchInput" class="search-box" placeholder="Search..." enterkeyhint="search" oninput="handleSearchInput()" onkeydown="handleEnter(event, 'search')"></textarea>
-                    <button class="icon-btn" onclick="performSearch()" title="Search">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    </button>
-                    <button class="icon-btn" onclick="toggleReplace()" title="Replace">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                    </button>
-                </div>
-                <div class="input-group hidden-opt" id="replaceGroup">
-                    <textarea id="replaceInput" class="replace-box" placeholder="Replace with..." enterkeyhint="done" onkeydown="handleEnter(event, 'replace')"></textarea>
-                    <button class="icon-btn" onclick="performReplace()" title="Apply">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="editor-body" id="editorContainer"></div>
-        
-        <div class="editor-footer">
-            <div class="stats-info">
-                <span id="lineCount">Ln: 0</span>
-                <span id="charCount">Ch: 0</span>
-            </div>
-            <div class="footer-actions">
-                <button class="footer-btn" onclick="runCode()" title="Run Code">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                </button>
-                <button class="footer-btn" onclick="shareCode()" title="Share">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                </button>
-                <button class="footer-btn" onclick="copyAllCode()" title="Copy">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                </button>
-                <button class="footer-btn" onclick="goHome()" title="Home">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="view hidden" id="previewView">
-        <div class="preview-header">
-            <button class="back-btn" onclick="closePreview()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back
-            </button>
-        </div>
-        <div class="preview-body">
-            <iframe id="previewFrame" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
-        </div>
-    </div>
-
-    <script>
-        // --- MANIFEST INJECTION FOR PWA ---
-        const manifest = {
-            "name": "Smart Code Editor",
-            "short_name": "CodeEditor",
-            "start_url": ".",
-            "display": "standalone",
-            "background_color": "#ffffff",
-            "theme_color": "#ffffff",
-            "icons": [
-                {
-                    "src": "https://cdn-icons-png.flaticon.com/512/1005/1005141.png",
-                    "sizes": "192x192",
-                    "type": "image/png"
-                }
-            ]
-        };
-        const stringManifest = JSON.stringify(manifest);
-        const blob = new Blob([stringManifest], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(blob);
-        const link = document.createElement('link');
-        link.rel = 'manifest';
-        link.href = manifestURL;
-        document.head.appendChild(link);
-
-        let rawCode = "";
-        let searchTimeout;
-
-        // --- GLOBAL KEYDOWN FIX ---
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
-                const activeEl = document.activeElement;
-                const activeTag = activeEl.tagName.toLowerCase();
-                
-                if (activeTag === 'textarea' || (activeTag === 'input' && activeEl.type === 'text')) {
-                    return; 
-                }
-
-                e.preventDefault();
-                const editorContainer = document.getElementById('editorContainer');
-                if (editorContainer && !document.getElementById('editorView').classList.contains('hidden')) {
-                    const range = document.createRange();
-                    range.selectNodeContents(editorContainer);
-                    const selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                }
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const video = document.getElementById('avatarVideo');
-            if (video) {
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => { console.log("Auto-play prevented"); });
-                }
-            }
-        });
-
-        window.history.replaceState({ page: 'home' }, 'Home', '');
-
-        window.onpopstate = function(event) {
-            const searchPopup = document.getElementById('customPopup');
-            const reportPopup = document.getElementById('reportModal');
-            
-            if (!searchPopup.classList.contains('hidden-opt')) {
-                searchPopup.classList.add('hidden-opt');
-            }
-            if (!reportPopup.classList.contains('hidden-opt')) {
-                reportPopup.classList.add('hidden-opt');
-            }
-
-            if (event.state) {
-                if (event.state.page === 'editor') {
-                    showEditorView();
-                } else if (event.state.page === 'preview') {
-                    showPreviewView();
-                } else {
-                    showHomeView();
-                }
-            } else {
-                showHomeView();
-            }
-        };
-
-        function showHomeView() {
-            document.getElementById('editorView').classList.remove('active');
-            document.getElementById('editorView').classList.add('hidden');
-            document.getElementById('previewView').classList.remove('active');
-            document.getElementById('previewView').classList.add('hidden');
-            
-            document.getElementById('homeView').classList.remove('hidden');
-            document.getElementById('homeView').classList.add('active');
-        }
-
-        function showEditorView() {
-            document.getElementById('homeView').classList.remove('active');
-            document.getElementById('homeView').classList.add('hidden');
-            document.getElementById('previewView').classList.remove('active');
-            document.getElementById('previewView').classList.add('hidden');
-            
-            document.getElementById('editorView').classList.remove('hidden');
-            document.getElementById('editorView').classList.add('active');
-        }
-
-        function showPreviewView() {
-            document.getElementById('homeView').classList.remove('active');
-            document.getElementById('homeView').classList.add('hidden');
-            document.getElementById('editorView').classList.remove('active');
-            document.getElementById('editorView').classList.add('hidden');
-            
-            document.getElementById('previewView').classList.remove('hidden');
-            document.getElementById('previewView').classList.add('active');
-        }
-
-        function closePreview() {
-            window.history.back(); 
-        }
-
-        function openSearchPopup() {
-            window.history.pushState({ page: 'editor', popup: 'search' }, 'Search Alert', '#alert');
-            document.getElementById('customPopup').classList.remove('hidden-opt');
-        }
-
-        function closePopup() {
-            window.history.back();
-        }
-
-        function handlePopupClick(e, id) {
-            if (e.target.id === id) {
-                closePopup();
-            }
-        }
-
-        function getFileName() {
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; 
-            return `Code_${hours}-${minutes}-${seconds}_${ampm}.html`;
-        }
-
-        async function shareCode() {
-            if (!rawCode) return;
-            const fileName = getFileName();
-            const blob = new Blob([rawCode], { type: 'text/html' });
-            const file = new File([blob], fileName, { type: 'text/html' });
-
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                try {
-                    await navigator.share({
-                        files: [file],
-                        title: fileName,
-                        text: 'Shared Code'
-                    });
-                } catch (error) { console.log('Share failed', error); }
-            } else {
-                if (navigator.share) {
-                    navigator.share({ title: fileName, text: rawCode });
-                } else {
-                    copyAllCode();
-                    alert("Sharing not supported. Code copied!");
-                }
-            }
-        }
-
-        function openReportModal() {
-            renderReports(); 
-            // Save current page state
-            const currentPage = document.getElementById('homeView').classList.contains('active') ? 'home' : 'editor';
-            window.history.pushState({ page: currentPage, popup: 'report' }, 'Report', '#report');
-            document.getElementById('reportModal').classList.remove('hidden-opt');
-        }
-
-        function submitReport() {
-            const input = document.getElementById('newReportInput');
-            const text = input.value.trim();
-            if (!text) return;
-            const reports = JSON.parse(localStorage.getItem('app_reports') || '[]');
-            const newReport = { text: text, date: new Date().toLocaleString() };
-            
-            // Add to end of list so it feels like a real chat/comment section
-            reports.push(newReport);
-            localStorage.setItem('app_reports', JSON.stringify(reports));
-            input.value = "";
-            renderReports();
-            
-            // Auto scroll to bottom
-            const list = document.getElementById('reportList');
-            setTimeout(() => { list.scrollTop = list.scrollHeight; }, 50);
-        }
-
-        function renderReports() {
-            const list = document.getElementById('reportList');
-            const reports = JSON.parse(localStorage.getItem('app_reports') || '[]');
-            if (reports.length === 0) {
-                list.innerHTML = '<div style="text-align:center; color:#999; margin-top:20px;">No reports yet.</div>';
-                return;
-            }
-            let html = "";
-            reports.forEach(report => {
-                html += `<div class="report-item"><div class="report-date">${report.date}</div><div class="report-msg">${escapeHtml(report.text)}</div></div>`;
-            });
-            list.innerHTML = html;
-            setTimeout(() => { list.scrollTop = list.scrollHeight; }, 50);
-        }
-
-        function goToEditor() {
-            const pasteVal = document.getElementById('pasteInput').value;
-            if (!pasteVal.trim()) return;
-            rawCode = pasteVal;
-            window.history.pushState({ page: 'editor' }, 'Editor', '#editor');
-            showEditorView();
-            renderCode(rawCode);
-        }
-
-        function goHome() {
-            window.history.back();
-        }
-
-        function handleEnter(event, type) {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                if (type === 'search') {
-                    performSearch();
-                    document.getElementById('searchInput').blur();
-                } else if (type === 'replace') {
-                    performReplace();
-                    document.getElementById('replaceInput').blur();
-                }
-            }
-        }
-
-        function handleSearchInput() {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(performSearch, 300);
-        }
-
-        function performSearch() {
-            const searchVal = document.getElementById('searchInput').value;
-            if (!searchVal) {
-                renderCode(rawCode);
-                return;
-            }
-            const index = rawCode.indexOf(searchVal);
-            if (index !== -1) {
-                renderCode(rawCode, { start: index, end: index + searchVal.length });
-            } else {
-                renderCode(rawCode);
-            }
-        }
-
-        function renderCode(code, highlightRange = null) {
-            const container = document.getElementById('editorContainer');
-            container.innerHTML = ""; 
-            const lines = code.split('\n');
-            document.getElementById('lineCount').innerText = `Ln: ${lines.length}`;
-            document.getElementById('charCount').innerText = `Ch: ${code.length}`;
-
-            let charAccumulator = 0; 
-            let htmlBuilder = "";
-
-            lines.forEach((line, index) => {
-                const lineStart = charAccumulator;
-                const lineEnd = charAccumulator + line.length;
-                let lineContentHtml = "";
-                const escapedLine = escapeHtml(line);
-
-                if (highlightRange && lineEnd > highlightRange.start && lineStart < highlightRange.end) {
-                    const relStart = Math.max(0, highlightRange.start - lineStart);
-                    const relEnd = Math.min(line.length, highlightRange.end - lineStart);
-                    const part1 = escapeHtml(line.substring(0, relStart));
-                    const partMark = escapeHtml(line.substring(relStart, relEnd));
-                    const part2 = escapeHtml(line.substring(relEnd));
-                    lineContentHtml = `${part1}<mark class="highlight" id="${index === 0 ? 'focusTarget' : ''}">${partMark}</mark>${part2}`;
-                } else {
-                    lineContentHtml = escapedLine;
-                }
-                if(lineContentHtml === "") lineContentHtml = "&#8203;"; 
-                const rowId = (highlightRange && lineStart <= highlightRange.start && lineEnd >= highlightRange.start) ? 'id="scrollTarget"' : '';
-
-                htmlBuilder += `<div class="code-row" ${rowId}><div class="line-num-col">${index + 1}</div><div class="line-code-col">${lineContentHtml}</div></div>`;
-                charAccumulator += line.length + 1; 
-            });
-
-            container.innerHTML = htmlBuilder;
-
-            if (highlightRange) {
-                setTimeout(() => {
-                    const target = document.getElementById('scrollTarget');
-                    if(target) {
-                        target.scrollIntoView({behavior: "smooth", block: "center"});
-                    }
-                }, 100);
-            }
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-
-        function toggleReplace() {
-            const group = document.getElementById('replaceGroup');
-            group.classList.toggle('hidden-opt');
-        }
-
-        function performReplace() {
-            const searchVal = document.getElementById('searchInput').value;
-            const replaceVal = document.getElementById('replaceInput').value;
-            if (!searchVal) return; 
-            if (rawCode.indexOf(searchVal) !== -1) {
-                rawCode = rawCode.replace(searchVal, replaceVal);
-                renderCode(rawCode);
-            }
-        }
-
-        function copyAllCode() {
-            if (!rawCode) return;
-            navigator.clipboard.writeText(rawCode).then(() => {}).catch(err => { console.error('Failed to copy', err); });
-        }
-
-        function runCode() {
-            if (!rawCode) return;
-            
-            const errorCatcher = `
-            <script>
-                window.onerror = function(message, source, lineno, colno, error) {
-                    let adjustedLine = lineno ? lineno - 7 : 'Unknown';
-                    alert('Bug Detected:\\n' + message + '\\nLine: ' + adjustedLine);
-                    return true;
-                };
-            <\/script>`;
-            
-            const finalCode = errorCatcher + rawCode;
-            
-            const iframe = document.getElementById('previewFrame');
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            
-            iframeDoc.open();
-            iframeDoc.write(finalCode);
-            iframeDoc.close();
-
-            window.history.pushState({ page: 'preview' }, 'Preview', '#preview');
-            showPreviewView();
-        }
-    </script>
-</body>
-</html>
+                        
