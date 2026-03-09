@@ -723,7 +723,7 @@
 
         let rawCode = "";
         let searchTimeout;
-
+        let currentHighlightRange = null; // নতুন ভেরিয়েবল যা হাইলাইটের পজিশন মনে রাখবে        let currentHighlightRange = null; // নতুন ভেরিয়েবল যা হাইলাইটের পজিশন মনে রাখবে
         // --- GLOBAL KEYDOWN FIX ---
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
@@ -938,17 +938,19 @@
         function performSearch() {
             const searchVal = document.getElementById('searchInput').value;
             if (!searchVal) {
+                currentHighlightRange = null;
                 renderCode(rawCode);
                 return;
             }
             const index = rawCode.indexOf(searchVal);
             if (index !== -1) {
-                renderCode(rawCode, { start: index, end: index + searchVal.length });
+                currentHighlightRange = { start: index, end: index + searchVal.length };
+                renderCode(rawCode, currentHighlightRange);
             } else {
+                currentHighlightRange = null;
                 renderCode(rawCode);
             }
         }
-
         function renderCode(code, highlightRange = null) {
             const container = document.getElementById('editorContainer');
             container.innerHTML = ""; 
@@ -1019,6 +1021,7 @@
 
             // যদি কোনো বক্স খালি থাকে, তাহলে হাইলাইট ক্লিয়ার করে দেবে
             if (!startText || !endText) {
+                currentHighlightRange = null;
                 renderCode(rawCode); 
                 return;
             }
@@ -1027,6 +1030,7 @@
             const startIndex = rawCode.indexOf(startText);
             if (startIndex === -1) {
                 alert("Start text not found!");
+                currentHighlightRange = null;
                 renderCode(rawCode);
                 return;
             }
@@ -1035,6 +1039,7 @@
             const endIndex = rawCode.indexOf(endText, startIndex + startText.length);
             if (endIndex === -1) {
                 alert("End text not found after the start text!");
+                currentHighlightRange = null;
                 renderCode(rawCode);
                 return;
             }
@@ -1042,19 +1047,37 @@
             // End text এর একেবারে শেষ পর্যন্ত সিলেক্ট করার জন্য
             const absoluteEnd = endIndex + endText.length;
 
+            currentHighlightRange = { start: startIndex, end: absoluteEnd };
+
             // আপনার অ্যাপের নিজস্ব renderCode ফাংশন দিয়ে হাইলাইট করা
-            renderCode(rawCode, { start: startIndex, end: absoluteEnd });
-        }
-        function performReplace() {
-            const searchVal = document.getElementById('searchInput').value;
+            renderCode(rawCode, currentHighlightRange);
+        }        function performReplace() {
             const replaceVal = document.getElementById('replaceInput').value;
-            if (!searchVal) return; 
-            if (rawCode.indexOf(searchVal) !== -1) {
-                rawCode = rawCode.replace(searchVal, replaceVal);
+
+            // যদি Range বা Search দিয়ে কোনো অংশ হাইলাইট করা থাকে, তবে সেটি রিপ্লেস করবে
+            if (currentHighlightRange) {
+                const beforeText = rawCode.substring(0, currentHighlightRange.start);
+                const afterText = rawCode.substring(currentHighlightRange.end);
+                
+                rawCode = beforeText + replaceVal + afterText;
+                
+                // রিপ্লেস করার পর হাইলাইট এবং ইনপুট বক্সগুলো ক্লিয়ার করা হচ্ছে
+                currentHighlightRange = null;
+                document.getElementById('rangeStartInput').value = '';
+                document.getElementById('rangeEndInput').value = '';
+                document.getElementById('searchInput').value = '';
+                
                 renderCode(rawCode);
+            } else {
+                // যদি হাইলাইট করা না থাকে, তাহলে রেগুলার সার্চ রিপ্লেস কাজ করবে
+                const searchVal = document.getElementById('searchInput').value;
+                if (!searchVal) return; 
+                if (rawCode.indexOf(searchVal) !== -1) {
+                    rawCode = rawCode.replace(searchVal, replaceVal);
+                    renderCode(rawCode);
+                }
             }
         }
-
         function copyAllCode() {
             if (!rawCode) return;
             navigator.clipboard.writeText(rawCode).then(() => {}).catch(err => { console.error('Failed to copy', err); });
